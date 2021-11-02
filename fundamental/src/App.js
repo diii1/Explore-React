@@ -1,24 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
+import Test from './Test'
+import Test2 from './Test'
+import Render from './Render';
+import ProfilePage from './pages/Profile/ProfilePage';
+import {mockUsers} from './mockData';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {/* <Test title="hello world!" />
+      <Test2 title="ini property2" />
+      <Render /> */}
+      <ProfilePage users={mockUsers} />
+    </>
   );
 }
 
