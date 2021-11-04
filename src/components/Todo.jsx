@@ -25,7 +25,7 @@ class Todo extends Component
                     }
                 </td>
                 <td style={ { width: 100 } } className="text-center">
-                    <button onClick={ () => this.props.todoDelete( this.props.todo.id ) } className="btn btn-sm btn-outline-danger del">Delete</button>
+                    <button onClick={ () => this.props.todoDelete( this.props.todo.id ) } className="btn btn-sm btn-outline-danger delete">Delete</button>
                 </td>
             </React.Fragment>
         );

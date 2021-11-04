@@ -14,12 +14,12 @@
   border-radius: 50px !important;
 }
 
-.del {
+.delete {
   padding: 3px 10px !important;
   color: black !important;
   border-radius: 20px !important;
 }
 
-.del:hover {
+.delete:hover {
   color: white !important;
 }
