@@ -1,0 +1,25 @@
+.border-full {
+  border: 1px solid black;
+  border-radius: 50px !important;
+  background-color: white;
+  color: black;
+}
+.form-control {
+  border-radius: 50px !important;
+  border-right: none !important;
+}
+
+.btn-submit {
+  border-left: none !important;
+  border-radius: 50px !important;
+}
+
+.del {
+  padding: 3px 10px !important;
+  color: black !important;
+  border-radius: 20px !important;
+}
+
+.del:hover {
+  color: white !important;
+}
