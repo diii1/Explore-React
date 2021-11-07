@@ -28,8 +28,8 @@ const Todos = () =>
     }
     const handleComplete = ( todo ) =>
     {
-        const todooo = [ ...todos ]
-        todooo.map( ( t ) =>
+        const todoo = [ ...todos ]
+        todoo.map( ( t ) =>
         {
             if ( t.id === todo.id )
             {
@@ -37,7 +37,7 @@ const Todos = () =>
             }
             return t
         } )
-        setTodos( [ ...todooo ] )
+        setTodos( [ ...todoo ] )
     }
 
 

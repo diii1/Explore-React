@@ -8,7 +8,7 @@ const Todo = (props) =>
         if ( props.todo.completed )
             return <s><i>{ props.todo.title }</i></s>;
         else
-            return <p>{ props.todo.title }</p>;
+            return props.todo.title;
     }
 
     return (
