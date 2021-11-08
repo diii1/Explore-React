@@ -25,10 +25,10 @@ const Navbar = ({author, app}) => {
                             <NavLink className="nav-link" onClick={ handleClick } to='/about'>About</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" onClick={ handleClick } to='/about-app'>{ app }</NavLink>
+                            <NavLink className="nav-link" onClick={ handleClick } to='/about-app'>About App{ app }</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" onClick={ handleClick } to='/about-author'>{ author }</NavLink>
+                            <NavLink className="nav-link" onClick={ handleClick } to='/about-author'>About Author{ author }</NavLink>
                         </li>
                     </ul>
                 </div>

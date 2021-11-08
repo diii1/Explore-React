@@ -1,6 +1,5 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Navbar from "../component/Navbar";
 import About from "../pages/About";
 import AboutApp from "../pages/AboutApp";
 import AboutAuthor from "../pages/AboutAuthor";
@@ -10,25 +9,11 @@ import NotFoundPage from "../pages/NotFoundPage";
 const Router = () => {
     return (
         <Routes>
-            <Route exact path='/'>
-                <Navbar />
-                <Home />
-            </Route>
-            <Route exact path='about'>
-                <Navbar author={"About Author"} app={"About App"}/>
-                <About />
-            </Route>
-            <Route exact path='about-app'>
-                <Navbar author={"About Author"} app={"About App"}/>
-                <AboutApp />
-            </Route>
-            <Route exact path='about-author'>
-                <Navbar author={"About Author"} app={"About App"}/>
-                <AboutAuthor />
-            </Route>
-            <Route path='*'>
-                <NotFoundPage />
-            </Route>
+            <Route exact path='/' element={<Home />} />
+            <Route exact path='about' element={<About />} />
+            <Route exact path='about-app' element={<AboutApp />} />
+            <Route exact path='about-author' element={<AboutAuthor />} />
+            <Route path='*' element={<NotFoundPage />}/>
         </Routes>
     )
 }
