@@ -1,9 +1,11 @@
 import FormPage from "./pages/Form/FormPage";
+import FormData from "./pages/Task/FormData";
 
 function App() {
   return (
     <div>
-      <FormPage/>
+      {/* <FormPage/> */}
+      <FormData/>
     </div>
   );
 }
