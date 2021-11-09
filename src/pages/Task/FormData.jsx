@@ -195,7 +195,8 @@ export default function FormData(){
                                         id="it" 
                                         name="pendidikan"
                                         value="IT"
-                                        onChange={handleInput} />
+                                        onChange={handleInput}
+                                        checked={data.pendidikan === "NonIT" ? true : false} />
                                     <label 
                                         className="form-check-label" 
                                         for="it">IT
@@ -207,7 +208,9 @@ export default function FormData(){
                                         className="form-check-input" 
                                         id="nonit" 
                                         name="pendidikan"
-                                        value="NonIT" />
+                                        value="NonIT"
+                                        onChange={handleInput}
+                                        checked={data.pendidikan === "NonIT" ? true : false} />
                                     <label 
                                         className="form-check-label" 
                                         for="nonit">Non IT
