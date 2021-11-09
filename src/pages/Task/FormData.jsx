@@ -6,19 +6,29 @@ export default function FormData(){
     const baseData = {
         namaLengkap: "",
         email: "",
-        noHandphone: 0,
+        noHandphone: "",
         pendidikan: "",
         kelas: "",
         harapan: ""
     }
 
+    const baseErrors = {
+        namaLengkap: "",
+        email: "",
+        noHandphone: "",
+        pendidikan: "",
+        kelas: "",
+    };
+
     const suratKesungguhan = useRef(null);
     const [data, setData] = useState(baseData);
-    const [errMsgNama, setErrMsgNama] = useState("");
-    const [errMsgEmail, setErrMsgEmail] = useState("");
-    // const [errMsgPhone, setErrMsgPhone] = useState("");
+    const [errMsg, setErrMsg] = useState(baseErrors);
     const regexName = /^[A-Za-z ]*$/;
-    const regexEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const regexNumbers = /^[-+]?[0-9]+$/;
+
+    const setErrors = (name, message) => {
+        setErrMsg((prev) => ({ ...prev, [name]: message }));
+    }
 
     const handleInput = e => {
         const name = e.target.name;
@@ -26,18 +36,34 @@ export default function FormData(){
 
         if(name === "namaLengkap"){
             if(regexName.test(value)){
-                setErrMsgNama("")
+                setErrors(name, "")
             }else{
-                setErrMsgNama("- Nama Lengkap Harus Berupa Huruf")
+                setErrors(name, "- Nama Lengkap Harus Berupa Huruf!")
             }
         }
 
         if(name === "email"){
-            if(regexEmail.test(value)){
-                setErrMsgEmail("")
-            }else{
-                setErrMsgEmail("- Email Tidak Sesuai")
+            if (value.length > 0 && !value.includes("@")) {
+                setErrors(name, "- Email tidak sesuai - @!");
+            } else if (value.length > 0 && !value.includes(".")) {
+                setErrors(name, "- Email tidak sesuai - domain!");
+            } else {
+                setErrors(name, "");
             }
+        }
+
+        if (name === "noHandphone") {
+            if (value.length > 0 && !regexNumbers.test(value)) {
+                setErrors(name, "- No Handphone Tidak Sesuai (hanya angka)!");
+            } else if (value.length < 9 || value.length > 14) {
+                setErrors(name, "- No Handphone Tidak Sesuai (wajib 9-14 character length)!");
+            } else {
+                setErrors(name, "");
+            }
+        }
+
+        if (name === "pendidikan") {
+            setErrors(name, "");
         }
 
         setData({
@@ -46,18 +72,67 @@ export default function FormData(){
         })
     }
 
-    const handleSubmit = () =>{
-        if(errMsgNama !== ""){
-            alert("Data Pendaftar Tidak Sesuai!")
-        }else{
-            alert(`Data Pendaftar "${data.namaLengkap}" Berhasil Diterima`)
+    const handleSubmit = (e) =>{
+        e.preventDefault();
+        let valid = true;
+
+        if(!regexName.test(data.namaLengkap)){
+            setErrors("namaLengkap", "Nama Lengkap Harus Berupa Huruf!");
+            valid = false;
+        }else if (data.namaLengkap.trim().length === 0) {
+            setErrors("namaLengkap", "Nama tidak boleh kosong!");
+            valid = false;
         }
-        resetData();
+
+        if (!data.email.includes("@")) {
+            setErrors("email", "Email tidak sesuai - @!");
+            valid = false;
+        } else if (!data.email.includes(".")) {
+            setErrors("email", "Email tidak sesuai - domain!");
+            valid = false;
+        }
+        console.log(data.noHandphone);
+        console.log(data.noHandphone.trim().length === 0);
+
+        if (data.noHandphone.trim().length === 0) {
+            console.log("atas");
+            setErrors("noHandphone", "No. HP tidak boleh kosong!");
+            valid = false;
+        } else if (
+            data.noHandphone.length > 0 &&
+            !regexNumbers.test(data.noHandphone)
+        ){
+            setErrors("noHandphone", "No Handphone Tidak Sesuai (hanya angka)!");
+            valid = false;
+        } else if (data.noHandphone.length < 9 || data.noHandphone.length > 14) {
+            setErrors(
+                "noHanphone",
+                "No Handphone Tidak Sesuai (wajib 9-14 character length)!"
+            );
+            valid = false;
+        }
+
+        if (data.pendidikan === "") {
+            setErrors("pendidikan", "Tolong pilih salah satu!");
+            valid = false;
+        }
+
+        if (valid) {
+            const keys = Object.keys(errMsg);
+            valid = valid && keys.every((key) => errMsg[key] === "");
+            if (valid) {
+                alert(`Data pendaftar ${data.namaLengkap} Berhasil diterima!`);
+            } else {
+                alert("Data pendaftar tidak sesuai!");
+            }
+        } else {
+            alert("Data pendaftar tidak sesuai!");
+        }
     }
 
     const resetData = () =>{
         setData(baseData);
-        setErrMsgNama("");
+        setErrors(baseErrors);
     }
 
     return (
@@ -76,7 +151,11 @@ export default function FormData(){
                                     type="text" 
                                     className="form-control" 
                                     name="namaLengkap"
-                                    onChange={handleInput} required />
+                                    onChange={handleInput}
+                                    value={data.namaLengkap}
+                                    minLength="3"
+                                    maxLength="100" required />
+                                <span className="mb-3 text-danger">{errMsg.namaLengkap}</span> 
                             </div>
                             <div className="mb-3">
                                 <label 
@@ -87,7 +166,9 @@ export default function FormData(){
                                     type="email" 
                                     className="form-control" 
                                     name="email"
-                                    onChange={handleInput} required />
+                                    onChange={handleInput}
+                                    value={data.email} required />
+                                <span className="mb-3 text-danger">{errMsg.email}</span> 
                             </div>
                             <div className="mb-3">
                                 <label 
@@ -95,12 +176,12 @@ export default function FormData(){
                                     className="form-label">No Handphone:
                                 </label>
                                 <input 
-                                    type="number" 
+                                    type="text" 
                                     className="form-control"
                                     name="noHandphone"
-                                    min="9"
-                                    max="14"
-                                    onChange={handleInput} required />
+                                    onChange={handleInput}
+                                    value={data.noHandphone} required />
+                                <span className="mb-3 text-danger">{errMsg.noHandphone}</span> 
                             </div>
                             <div className="mb-3">
                                 <label 
@@ -112,7 +193,9 @@ export default function FormData(){
                                         type="radio" 
                                         className="form-check-input" 
                                         id="it" 
-                                        name="pendidikan" />
+                                        name="pendidikan"
+                                        value="IT"
+                                        onChange={handleInput} />
                                     <label 
                                         className="form-check-label" 
                                         for="it">IT
@@ -123,23 +206,26 @@ export default function FormData(){
                                         type="radio" 
                                         className="form-check-input" 
                                         id="nonit" 
-                                        name="pendidikan" />
+                                        name="pendidikan"
+                                        value="NonIT" />
                                     <label 
                                         className="form-check-label" 
                                         for="nonit">Non IT
                                     </label>
+                                    <span className="mb-3 text-danger">{errMsg.pendidikan}</span> 
                                 </div>
                             </div>
                             <div className="mb-3">
                                 <label 
                                     className="form-label"
                                     for="Program">Kelas Coding yang Dipilih:</label>
-                                <select class="form-select" name="kelas">
-                                    <option selected>Pilih Salah Satu Program</option>
-                                    <option value="Coding Backend with Golang">Coding Backend with Golang</option>
-                                    <option value="Coding Frontend with ReactJS">Coding Frontend with ReactJS</option>
-                                    <option value="Fullstack Developer">Fullstack Developer</option>
+                                <select class="form-select" name="kelas" value={data.kelas} onChange={handleInput}>
+                                    <option value="0">Pilih Salah Satu Program</option>
+                                    <option value="1">Coding Backend with Golang</option>
+                                    <option value="2">Coding Frontend with ReactJS</option>
+                                    <option value="3">Fullstack Developer</option>
                                 </select>
+                                <span className="mb-3 text-danger">{errMsg.kelas}</span> 
                             </div>
                             <div className="mb-3">
                                 <label 
@@ -159,15 +245,17 @@ export default function FormData(){
                                 </label>
                                 <textarea 
                                     className="form-control" 
-                                    id="harapan" name="harapan" rows="5"></textarea>
+                                    id="harapan" 
+                                    name="harapan" 
+                                    rows="5"
+                                    onChange={handleInput}
+                                    value={data.harapan}></textarea>
                             </div>
-                            <span className="mb-3 text-danger">{errMsgNama}</span><br />
-                            <span className="mb-3 text-danger">{errMsgEmail}</span><br />
-                            {/* <span className="mb-3 text-danger">{errMsgPhone}</span><br /> */}
                             <input 
                                 type="submit" 
                                 className="btn btn-success px-5 mt-2"
-                                value="Submit" />
+                                value="Submit"
+                                onClick={handleSubmit} />
                             <button className="btn btn-danger px-5 ms-3" onClick={resetData}>Reset</button>
                         </div>
                     </div>
