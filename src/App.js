@@ -1,24 +1,33 @@
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import './App.css';
+import Home from './pages/Home';
+import Navbar from './components/Navbar';
+import About from './pages/About';
+import AboutApp from './pages/AboutApp';
+import AboutAuthor from './pages/AboutAuthor';
+import NotFound from './pages/NotFoundPage';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './stores/todoStore';
 
-import './App.css';
-import Home from './component/Home';
-import { store, persistor } from './store/store';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Navbar from './components/Navbar';
 
 function App() {
   return (
-    <div className="App">
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <Router>
-              <Navbar />
-            </Router>
-            <Home />
-          </PersistGate>
+    <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+                <Router>
+                    <Navbar />
+                    <Routes>
+                        <Route exact path="/" component={Home} />
+                        <Route path="/about" component={About} />
+                        <Route path="/about/about-app" component={AboutApp} />
+                        <Route path="/about/about-author" component={AboutAuthor} />
+                        <Route component={NotFound} />
+                    </Routes>
+                </Router>
+            </PersistGate>
         </Provider>
-    </div>
   );
 }
 
