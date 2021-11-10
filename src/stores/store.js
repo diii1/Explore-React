@@ -6,12 +6,12 @@ import storage from "redux-persist/lib/storage";
 import todoSlice from "./todoSlice";
 
 const reducers = combineReducers({
-    todo: todoSlice,
+  todo: todoSlice,
 });
 
 const persistConfig = {
-    key: "todos",
-    storage,
+  key: "todos",
+  storage,
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

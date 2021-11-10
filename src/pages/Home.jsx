@@ -1,29 +1,19 @@
-import React from "react";
-import Todo from "./Todo";
-import TodoAdd from "./TodoAdd";
 
-const Home = () => {
+import React from 'react'
+import Todo from './Todo'
+import TodoList from './TodoList'
+
+const Home = () =>
+{
     return (
-        // <div>
-        //     <div className="container py-3">
-        //         <div>
-        //             <div className='container' style={{marginTop: "200px"}}>
-        //                 <div className='row d-flex justify-content-center align-items-center'>
-        //                     <div className='col-7'>
-        //                         <h1 className='text-center' style={{fontSize:"70px"}}>T o d o S</h1>
-        //                         <Todos />
-        //                     </div>
-        //                 </div>
-        //             </div>
-        //         </div>
-        //     </div>
-        // </div>
         <div className="todo-app">
-            <h1 className="text-title">todos</h1>
-            <TodoAdd />
-            <Todo />
-            {/* <TodoForm onSubmit={addTodo}/>
-            <Todo todos={todos} completeTodo={completeTodo} removeTodo={removeTodo}/> */}
+            <div className="row vh-100 justify-content-center align-content-center align-items-center">
+                <div className="col-7">
+                    <h1 className="text-title text-center mb-5" style={{fontSize:"75px"}}>T o d o S</h1>
+                    <TodoList />
+                    <Todo />
+                </div>
+            </div>
         </div>
     )
 }
