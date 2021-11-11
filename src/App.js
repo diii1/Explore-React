@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Selamat Datang di Website Static Karyadi
+          Selamat Datang di Website Static Raviy Bayu
         </p>
         <a
           className="App-link"
@@ -15,7 +15,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Ini React App Bayu
         </a>
       </header>
     </div>
