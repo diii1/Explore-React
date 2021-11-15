@@ -1,0 +1,116 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Roboto", sans-serif;
+}
+.myContainer {
+  display: flex;
+}
+.left {
+  background-image: url(../Assets/bg-contactUs.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 35%;
+  height: 100vh;
+}
+.left .inner {
+  background-color: #19345ea6;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 40px;
+  padding-bottom: 0;
+  margin: 0 1px;
+  flex-grow: 1;
+}
+form {
+  width: 80%;
+}
+.right form h1 {
+  margin-bottom: 1.2rem;
+  color: #19345e;
+}
+.form-control {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.form-control label {
+  margin-bottom: 0.5rem;
+  color: #19345e;
+  font-size: 20px;
+  font-weight: 500;
+}
+.form-control label.required::after {
+  content: "*";
+  color: #ff3401;
+}
+.form-control input[type="text"] {
+  height: 28px;
+  width: 100%;
+  border: 1px solid #ced4da;
+  padding: 2px 5px;
+  font-size: 16px;
+  color: #495057;
+}
+.form-control input::placeholder {
+  font-family: "Roboto", sans-serif;
+  color: #495057;
+  font-size: 16px;
+}
+.form-control select {
+  width: 100%;
+  height: 28px;
+  border: 1px solid #ced4da;
+  padding: 0 5px;
+}
+.form-control select option {
+  color: #495057;
+}
+.form-control textarea {
+  border: 1px solid #ced4da;
+  width: 100%;
+  height: 112px;
+  padding: 1px 5px;
+}
+
+.form-control textarea::-moz-placeholder,
+.form-control textarea::-webkit-input-placeholder,
+.form-control textarea::placeholder-shown,
+.form-control textarea::-ms-input-placeholder {
+  font-family: "Roboto", sans-serif;
+  color: #495057;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.btn {
+  background-color: #f47522;
+  width: 96px;
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 16px;
+  font-weight: 400;
+  margin-top: 10px;
+}
+.btn:hover {
+  background-color: #fd8434;
+}

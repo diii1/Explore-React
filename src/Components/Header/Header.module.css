@@ -1,0 +1,34 @@
+header {
+  background-color: white;
+}
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.4rem rem;
+  width: 80%;
+  margin: 0 auto;
+  padding: 0.4rem 0;
+}
+
+.myList-nav {
+  list-style-type: none;
+  width: 35%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.link {
+  text-decoration: none;
+  color: #19345e;
+  font-size: 13px;
+}
+.link:hover {
+  color: #f47522;
+}
+
+.active {
+  color: #f47522;
+}
+/* #f47522 */
+/* #19345e */

@@ -1,0 +1,46 @@
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.overlay {
+  background-color: rgba(0, 0, 0, 0.4);
+  inset: 0;
+  position: fixed;
+}
+.title {
+  text-align: center;
+  font-size: 26px;
+  color: #1d3557;
+}
+
+.actions {
+  text-align: center;
+}
+
+.actions .cancel,
+.actions .confirm {
+  margin: 0.5rem 1rem;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+  transition: 0.3s ease-in-out;
+}
+
+.actions .confirm {
+  background-color: #1d3557;
+  color: #f1faee;
+}
+.actions .confirm:hover {
+  background-color: #080c11;
+}
+.actions .cancel {
+  background-color: azure;
+  color: #1d3557;
+}
+.actions .cancel:hover {
+  background-color: rgb(166, 219, 219);
+}
