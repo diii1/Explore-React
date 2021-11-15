@@ -15,7 +15,7 @@ function News() {
         async function getData() {
             try {
                 const data = await axios.get(
-                    "https://newsapi.org/v2/everything?q=apple&from=2021-11-13&to=2021-11-13&sortBy=popularity&apiKey=33a419acfc83410489cdeb2160fd191f"
+                    "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=33a419acfc83410489cdeb2160fd191f"
                 );
                 setNews(data.data.articles);
                 setIsLoading(false);

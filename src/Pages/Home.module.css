@@ -6,6 +6,8 @@
   background-image: url(../Assets/bg-img\ 1.png);
   font-family: "Roboto", sans-serif;
   min-height: 100vh;
+  background-size: 100%;
+  background-repeat: no-repeat;
 }
 
 .text {

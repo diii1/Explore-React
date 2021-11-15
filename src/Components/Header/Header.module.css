@@ -13,7 +13,8 @@ header {
 
 .myList-nav {
   list-style-type: none;
-  width: 35%;
+  width: 25%;
+  font-weight: bold;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

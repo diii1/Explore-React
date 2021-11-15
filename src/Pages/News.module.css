@@ -13,4 +13,5 @@
 
 .bgImg {
   background: url(../Assets/bg-img\ 1.png);
+  background-size: 100%;
 }
