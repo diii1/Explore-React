@@ -1,31 +1,11 @@
 import "./Home.css";
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useState } from "react";
-
-const GetAnggota = gql`
-  query MyQuery {
-    passengers_pengunjung {
-      id
-      jenisKelamin
-      nama
-      umur
-    }
-  }
-`;
-
-const updateData = gql`
-  mutation MyMutation($nama: String!, $id: Int!) {
-    update_passengers_pengunjung(where: { id: { _eq: $id } }, _set: { nama: $nama }) {
-      affected_rows
-    }
-  }
-`;
+import { updateData } from "../graphql/mutation";
 
 const ListItem = (props) => {
   const { id, nama, umur, jenisKelamin } = props.data;
-  const [updatedatas, { loading }] = useMutation(updateData, {
-    refetchQueries: [GetAnggota],
-  });
+  const [updatedatas, { loading }] = useMutation(updateData);
 
   const [statusNama, setStatusNama] = useState(false);
   const [newNama, setnewNama] = useState("");
