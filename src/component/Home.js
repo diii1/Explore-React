@@ -2,7 +2,7 @@ import { useState } from "react";
 import PassengerInput from "./PassengerInput";
 import ListPassenger from "./ListPassenger";
 import Header from "./Header";
-import { gql, useLazyQuery, useQuery } from "@apollo/client";
+import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
 
 const GetAnggota = gql`
   query MyQuery {
@@ -15,12 +15,28 @@ const GetAnggota = gql`
   }
 `;
 const getById = gql`
-  query MyQuery($id: Int) {
+  query MyQuery($id: Int!) {
     passengers_pengunjung(where: {id: {_eq: $id}}) {
       id
       jenisKelamin
       nama
       umur
+    }
+  }
+`;
+
+const DeleteData = gql`
+  mutation MyMutation($id: Int!) {
+    delete_passengers_pengunjung(where: {id: {_eq: $id}}) {
+      affected_rows
+    }
+  }
+`;
+
+const InsertData = gql`
+  mutation MyMutation($object: passengers_pengunjung_insert_input!) {
+    insert_passengers_pengunjung_one(object: $object) {
+      id
     }
   }
 `;
@@ -31,28 +47,42 @@ function Home() {
     data: allData,
     loading: loadingAllData,
     error: errorAllData,
+    refetch,
   } = useQuery(GetAnggota);
-  const [passengers, setPassengers] = useState([]);
+  const [deletedata, { loading: loadingDelete }] = useMutation(DeleteData, {
+    refetchQueries: [GetAnggota],
+  });
   const [getData, { data: dataId, loading: loadId, errorId }] =
     useLazyQuery(getById);
-
+  const [addData, { loading: addLoading }] = useMutation(InsertData, {
+    refetchQueries: [GetAnggota],
+  });
   const showAllData = () => {
-    setPassengers(allData?.passengers_pengunjung);
+    console.log(allData?.passengers_pengunjung);
+    refetch();
   };
   const hapusPengunjung = (id) => {
-    // setData((oldData) =>
-    //   oldData.filter((item) => {
-    //     return item.id !== id;
-    //   })
-    // );
+    deletedata({
+      variables: {
+        id: id,
+      },
+    });
   };
 
   const tambahPengunjung = (newUser) => {
-    // const newData = {
-    //   id: uuidv4(),
-    //   ...newUser,
-    // };
-    // setData((oldData) => [...oldData, newData]);
+    const newData = {
+      ...newUser,
+    };
+    addData({
+      variables: {
+        object: {
+          id: newData.id,
+          nama: newData.nama,
+          umur: newData.umur,
+          jenisKelamin: newData.jenisKelamin,
+        },
+      },
+    });
   };
 
   const HandlerId = () => {
@@ -79,15 +109,15 @@ function Home() {
         Search By ID
       </button>
       <button onClick={showAllData}>Show All</button>
-      {errorAllData && <p>Something Went Wrong...</p>}
-      {(loadingAllData || loadId) && <div className='center'>"wait"</div>}
+      {(loadingAllData || loadId || addLoading || loadingDelete) && (
+        <div className='center'>"wait"</div>
+      )}
       {!errorAllData && !loadingAllData && !loadId && (
         <ListPassenger
           data={dataId ? dataId?.passengers_pengunjung : allData?.passengers_pengunjung}
           hapusPengunjung={hapusPengunjung}
         />
       )}
-      {console.log(passengers)}
       <PassengerInput tambahPengunjung={tambahPengunjung} />
     </div>
   );
