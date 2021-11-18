@@ -9,23 +9,16 @@ import { SubsData } from "../graphql/subscription";
 
 function Home() {
   const [value, setValue] = useState(0);
-  // const {
-  //   data: allData, 
-  //   loading: loadingAllData, 
-  //   error: errorAllData
-  // } = useQuery(GetAnggota);
   const {
     data: allData,
     loading: loadingAllData,
     error: errorAllData
-    // refetch,
   } = useSubscription(SubsData);
   const [deletedata, { loading: loadingDelete }] = useMutation(DeleteData);
   //, {refetchQueries: [GetAnggota],}
   const [getData, { data: dataId, loading: loadId, errorId }] =
     useLazyQuery(getById);
   const [addData, { loading: addLoading }] = useMutation(InsertData);
-  //, {refetchQueries: [GetAnggota]}
   // const showAllData = () => {
   //   console.log(allData?.passengers_pengunjung);
     // refetch();
